@@ -86,5 +86,15 @@ class Model implements CrudInterface
         $stmt = $this->conn->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function findproduk()
+    {
+        $query = "SELECT produk.*, kategori.nama_kategori
+                            FROM {$this->table}
+                            JOIN kategori on produk.kategori_id = kategori.id";
+        $stmt = $this->conn->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 ?>

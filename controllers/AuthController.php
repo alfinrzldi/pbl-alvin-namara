@@ -1,6 +1,8 @@
 <?php
 require_once 'Models/User.php';
 require_once 'HomeController.php';
+require_once 'helpers/Flasher.php';
+
 
 class AuthController
 {
@@ -84,6 +86,7 @@ class AuthController
                     'tipe' => 'success',
                     'pesan' => 'Registrasi Berhasil! Silahkan login',
                 ];
+                $_SESSION['flash_message'] = $message;
                 header('location:/login');
                 exit(); // Stop further execution after redirect
             } else {
@@ -92,6 +95,7 @@ class AuthController
                     'tipe' => 'error',
                     'pesan' => $result,
                 ];
+                $_SESSION['flash_message'] = $message;
             }
         }
 

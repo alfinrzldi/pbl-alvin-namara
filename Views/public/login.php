@@ -11,15 +11,15 @@
                 <label class="block text-gray-900 font-regular mb-2" for="email">
                     Email
                 </label>
-                <input id="email" name="email" type="email"
-                    class=" w-full px-4 py-2 rounded-lg border border-gray-300 text-gray-900">
+                <input id="email" name="email" type="email" placeholder="Email"
+                    class=" w-full text-white px-4 py-2 rounded-lg border bg-gray-800 border-gray-300 text-gray-900">
             </div>
             <div>
                 <label class="block text-gray-900 font-regular mb-2" for="password">
                     Password
                 </label>
-                <input id="password" name="password" type="password" required
-                    class="w-full px-4 py-2 rounded-lg border border-gray-400">
+                <input id="password" name="password" type="password"  placeholder="Password" required
+                    class="w-full px-4 py-2 text-white rounded-lg border border-gray-400 bg-gray-800">
             </div>
             <div class="flex justify-around">
                 <div class="">

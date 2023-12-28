@@ -14,7 +14,8 @@ if(!isset($_SESSION['role_user']) || $_SESSION['role_user'] !== 1) {
       $pageMapping = [
         'produk' => 'components/produk.php',
         'kategori' => 'components/kategori.php',
-        'user' => 'components/user.php'
+        'user' => 'components/user.php',
+        'dashboard' => 'components/dashboard.php',
       ];
 
       // Check if 'page' parameter is set and its value exists in the mapping array
@@ -36,6 +37,7 @@ if(!isset($_SESSION['role_user']) || $_SESSION['role_user'] !== 1) {
       }
       ;
       ?>
+      
 
     </main>
   </div>

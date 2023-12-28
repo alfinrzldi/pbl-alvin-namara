@@ -41,7 +41,8 @@ class ApiController
 
     public function getProduks()
     {
-        echo json_encode($this->produkModel->findAll(), true);
+        echo json_encode($this->produkModel->findproduk(), true);
+        
     }
 }
 

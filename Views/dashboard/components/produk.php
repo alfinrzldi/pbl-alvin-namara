@@ -12,10 +12,11 @@
   </div>
   <!-- Tabel Produk -->
   <div class="bg-white overflow-hidden shadow-md rounded-lg w-auto p-2">
-    <table class="w-full divide-gray-200" id="table_produk">
+    <table class=" sm:w-full divide-gray-200" id="table_produk">
       <thead class="">
         <tr class="" >
           <th scope="col" class="px-6 py-5 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+          <th scope="col" class="px-6 py-5 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
           <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Nama
             Produk</th>
             <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -74,6 +75,12 @@
   </div>
 </div>
 <script>
+  function getCategoryName(kategori) {
+        switch (kategori) {
+            default:
+                return 'Pisang';
+        }
+      }
   //isi tabel body dinamis
   $.ajax({
     url: '/api/produks',
@@ -82,14 +89,16 @@
       const tbody = response.map((item, index) => `
             <tr>
                 <td class='text-center' >${index + 1}</td>
+                <td class='text-center' >${item.nama_kategori
+                }</td>
                 <td class='text-center' >${item.nama_produk}</td>
                 <td class='text-center' >${item.harga}</td>
                 <td class='text-center' >${item.deskripsi}</td>
                 <td class='text-center' ><img src="/assets/images/card/${item.photo}" alt="Foto " width="100" height="100"></td>
                 
                 <td class='py-3' >
-                    <button type='button' class='focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-2.5 mt-5 produk-edit' data-modal-target='produkModal' data-modal-toggle='produkModal' data-bs-id='${item.id}'><i class='bi bi-pencil-square'></i>Edit</button>
-                    <button type='button' class='focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-5  produk-delete' data-modal-target='produkModal' data-modal-toggle='produkModal' data-bs-id='${item.id}'><i class='bi bi-trash'></i>Hapus</a>
+                    <button type='button' class='focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-3 py-2.5 mt-5 ml-10 produk-edit' data-modal-target='produkModal' data-modal-toggle='produkModal' data-bs-id='${item.id}'><i class='bi bi-pencil-square'></i>Edit</button>
+                    <button type='button' class='focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-5  ml-10 produk-delete' data-modal-target='produkModal' data-modal-toggle='produkModal' data-bs-id='${item.id}'><i class='bi bi-trash'></i>Hapus</a>
                 </td>
             </tr>
         `).join('');
@@ -104,38 +113,58 @@
       success: function (response) {
 
         $(".produk-tambah").on("click", function () {
-          $("#modal-header").text("Tambah Produk");
-          $("#modal-content").html(`
-          <input type="hidden" name="id">
-          <div class="grid gap-4 mb-4 grid-cols-2">
-            <div class="col-span-2">
-              <label for="nama_produk" class="block mb-2 text-sm font-bold text-gray-900">Nama
-                Produk</label>
+          $.ajax({
+                        url: '/api/kategoris',
+                        type: 'GET',
+                        success: function (response) {
+                            $("#modal-header").text("Tambah Produk");
+                            $("#modal-content").html(`
+                            <input type="hidden" name="id">
+                            <div class="grid gap-4 mb-4 grid-cols-2">
+                              <div class="col-span-2">
 
-              <input type="text" name="nama_produk" id="nama_produk"
-                class="bg-gray-800 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                placeholder="Nama Produk" required="">
+                              <label for="nama_produk" class="block mb-2 text-sm font-bold text-gray-900">Kategori</label>
+            <select class="form-select" id="kategori_select" name="kategori_id"
+                                aria-label="Kategori Select">
+                            </select>
+                            
+                                <label for="nama_produk" class="block mb-2 text-sm font-bold text-gray-900">Nama
+                                  Produk</label>
+                                <input type="text" name="nama_produk" id="nama_produk"
+                                  class="bg-gray-800 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                  placeholder="Nama Produk" required="">
+
+                                 
 
 
-                <label for="nama_produk" class="block pt-5 mb-2 text-sm font-bold text-gray-900">Harga</label>
-              <input type="text" name="harga" id="harga"
-                class="bg-gray-800 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                placeholder="Harga" required="">
+                                  <label for="harga" class="block pt-5 mb-2 text-sm font-bold text-gray-900">Harga</label>
+                                <input type="text" name="harga" id="harga"
+                                  class="bg-gray-800 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                  placeholder="Harga" required="">
 
-                <label for="deskripsi" class="block pt-5 mb-2 text-sm font-bold text-gray-900">Deskripsi</label>
-              <input type="" name="deskripsi" id="deskripsi"
-                class="bg-gray-800 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                placeholder="Deskripsi" required="">
+                                  <label for="deskripsi" class="block pt-5 mb-2 text-sm  font-bold text-gray-900">Deskripsi</label>
+                                <input type="" name="deskripsi" id="deskripsi"
+                                  class="bg-gray-800 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                  placeholder="Deskripsi" required="">
 
-                <label for="photo" class=" mt-5 block mb-2 text-sm font-bold text-gray-900">Upload Photo</label>
-                <input type="file" name="photo" id="photo"
-                class="bg-gray-800 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                required="">
-            </div>  
-          </div>
-        `);
-          $("#submit").html("Simpan");
-          $("form").attr("action", "produk/save");
+                                  <label for="photo" class=" mt-5 block mb-2 text-sm font-bold text-gray-900">Upload Photo</label>
+                                  <input type="file" name="photo" id="photo"
+                                  class="bg-gray-800 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                  required="">
+                              </div>  
+                            </div>
+                            `);
+                            $("#submit").html("Simpan");
+                            $("form").attr("action", "produk/save");
+                            let kategoriSelect = $('#kategori_select');
+                            kategoriSelect.empty();
+                            kategoriSelect.append('<option>Pilih Kategori</option>');
+                           
+                            response.forEach(function (kategori) {
+                                kategoriSelect.append(`<option value="${kategori.id}">${kategori.nama_kategori}</option>`);
+                     });
+                 }
+            });
         });
         $(".produk-edit").on("click", function () {
           const userId = $(this).data('bs-id');
@@ -145,7 +174,13 @@
             <input type="hidden" name="id" value="${produk.id}">
             <div class="grid gap-4 mb-4 grid-cols-2">
               <div class="col-span-2">
-                <label for="nama_produk" class="block mb-2 text-sm font-bold text-gray-800 ">Nama
+
+              <label for="kategori" class="block mb-2 text-sm font-bold text-gray-800 ">pilih kategoriS</label>
+                <input type="" name="kategori" id="kategori"
+                  class="bg-gray-800 border border-gray-300 text-gray-100 text-sm rounded-lg  block w-full p-2.5"
+                  placeholder="Kategori" required="" value="${produk.kategori_id}">
+
+                <label for="nama_produk" class="block mb-2 text-sm font-bold text-gray-800">Nama
                   Produk</label>
                 <input type="text" name="nama_produk" id="nama_produk"
                   class="bg-gray-800 border border-gray-300 text-gray-100 text-sm rounded-lg  block w-full p-2.5"
@@ -162,7 +197,7 @@
                   placeholder="deskripsi" required="" value="${produk.deskripsi}">
 
                   <label for="photo" class="block pt-3 mb-2 text-sm font-bold text-gray-800 ">Ganti Foto</label>
-                <input type="text" name="photo" id="photo"
+                <input type="file  " name="photo" id="photo"
                   class="bg-gray-800 border border-gray-300 text-gray-100 text-sm rounded-lg  block w-full p-2.5"
                   placeholder="photo" required="" value="${produk.photo}">
               </div>

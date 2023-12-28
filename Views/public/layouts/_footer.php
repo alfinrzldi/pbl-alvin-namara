@@ -11,12 +11,12 @@
                           <a href="#" class="inline-block text-base font-normal text-buttontext hover:text-gray-200">Home</a>
                       </li>
                       <li class="mb-4">
-                          <a href="#" class="inline-block text-base font-normal text-buttontext hover:text-gray-200">
-                              Produk</a>
+                          <a href="#category" class="inline-block text-base font-normal text-buttontext hover:text-gray-200">
+                              Category</a>
                       </li>
                       <li class="mb-4">
-                          <a href="#"
-                              class="inline-block text-base font-normal text-buttontext hover:text-gray-200">Contact</a>
+                          <a href="#produk"
+                              class="inline-block text-base font-normal text-buttontext hover:text-gray-200">Produk</a>
                       </li>
                   </ul>
               </div>

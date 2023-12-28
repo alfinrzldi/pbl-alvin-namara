@@ -2,6 +2,7 @@
 session_start();
 include_once 'helpers/routes.php';
 include_once 'helpers/functions.php';
+include_once 'helpers/Flasher.php';
 $routes = Routes::getRoutes();
 
 if (strpos($_SERVER['REQUEST_URI'], '/api') !== false) {
@@ -31,6 +32,7 @@ if (strpos($_SERVER['REQUEST_URI'], '/api') !== false) {
    }
    ?>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,7 +47,22 @@ if (strpos($_SERVER['REQUEST_URI'], '/api') !== false) {
 </head>
 
 <body>
-
+<?php if (isset($_SESSION['flash_message'])) {
+        $flashMessage = $_SESSION['flash_message'];
+        unset($_SESSION['flash_message']);
+        echo '
+        <script>
+        Swal.fire({
+            title: "' .$flashMessage['pesan'] . '",
+            icon: "' . $flashMessage['tipe'] . '",
+          });
+        </script>
+    ';
+        // <div id="toast-undo" class="animate-timer fixed flex items-center w-full max-w-xs p-10 space-x-4 text-gray-500 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow top-5 left-5 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800" role="alert">
+        //     <div class="text-sm font-normal">' . $flashMessage['pesan'] . '</div>
+        // </div>
+    }
+    ?>
 
     <?php
     run($_SERVER['REQUEST_URI'], $routes);

@@ -45,7 +45,7 @@
     <div class="p-1 flex flex-wrap items-center justify-center  ">
         <?php foreach ($kategoris as $index => $kategori) {
             ?>
-            <div class="flex-shrink-0 m-6 relative overflow-hidden <?= $index % 2 != 0 ? 'bg-button' : 'bg-pinknamara' ?> rounded-xl max-w-xs shadow-xl duration-500 hover:scale-105 hover:shadow-xl w-48 md:w-64"
+            <div class="flex-shrink-0 m-6 relative overflow-hidden <?= $index % 2!= 0 ? 'bg-pinknamara' : 'bg-button' ?> rounded-xl max-w-xs shadow-xl duration-500 hover:scale-105 hover:shadow-xl w-48 md:w-64"
                 data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
                 <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none"
                     style="transform: scale(1.5); opacity: 0.1;">
@@ -80,14 +80,14 @@
 <section>
     <div>
         <h3 id="produk" class="flex justify-center font-bold text-2xl md:text-4xl mt-6 text-button">
-            Produk Lainnya
+            Produk Kami
         </h3>
     </div>
 
     <div class="p-1 flex flex-wrap items-center justify-center">
 <?php foreach ($produks as $index => $produk) { 
         ?>
-        <div class="flex-shrink-0 m-6 relative overflow-hidden bg-gray-500   rounded-xl max-w-xs shadow-xl duration-500 hover:scale-105 hover:shadow-xl w-48 md:w-64"
+        <div class="flex-shrink-0 m-6 relative overflow-hidden rounded-xl bg-gray-500 max-w-xs shadow-xl duration-500 hover:scale-105 hover:shadow-xl w-48 md:w-64"
             data-aos="zoom-out-up" data-aos-duration="500" data-aos-delay="200">
             <div class="relative pt-10 px-10 flex items-center justify-center">
                 <div class="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
@@ -112,3 +112,5 @@
 <?php } ?>
     </div>
 </section>
+
+

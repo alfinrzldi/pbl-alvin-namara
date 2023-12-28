@@ -17,6 +17,9 @@ class Routes {
             '/dashboard/user/update' => 'UserController@update',
             '/dashboard/user/delete/(\d+)' => 'UserController@delete',
 
+            //Detail
+            '/detail' => 'DetailProdukController@index',
+
             //Dashboard Kategori
             // '/dashboard/kategoris' => 'KategoriController@index',
             // '/dashboard/kategori/save' => 'KategoriController@save',
