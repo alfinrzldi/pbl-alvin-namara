@@ -28,7 +28,7 @@
                         Akun</a>
                 </div>
                 <div class="">
-                    <a href="#"
+                    <a href="/forgotpassword"
                         class="text-gray-800 hover:text-blue-500 focus:outline-none focus:underline transition duration-150 ease-in-out">Lupa
                         password?</a>
                 </div>

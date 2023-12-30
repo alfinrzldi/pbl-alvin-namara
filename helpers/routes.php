@@ -12,6 +12,9 @@ class Routes {
             '/dashboard' => 'DashboardController@index',
             '/detailproduk/(\d+)' => 'HomeController@detail',
             '/kategoriproduk/(\d+)' => 'HomeController@kategoriproduk',
+            '/forgotpassword' => 'ForgotPasswordController@index',
+            '/forgotpassword/send' => 'ForgotPasswordController@send',
+            
             
             //Dashboard User
             '/dashboard/users' => 'UserController@index',
