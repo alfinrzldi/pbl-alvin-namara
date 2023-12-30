@@ -10,6 +10,8 @@ class Routes {
             '/registerUser' => 'AuthController@registerUser',
             '/register' => 'AuthController@registrationForm',
             '/dashboard' => 'DashboardController@index',
+            '/detailproduk/(\d+)' => 'HomeController@detail',
+            '/kategoriproduk/(\d+)' => 'HomeController@kategoriproduk',
             
             //Dashboard User
             '/dashboard/users' => 'UserController@index',
@@ -18,7 +20,6 @@ class Routes {
             '/dashboard/user/delete/(\d+)' => 'UserController@delete',
 
             //Detail
-            '/detail' => 'DetailProdukController@index',
 
             //Dashboard Kategori
             // '/dashboard/kategoris' => 'KategoriController@index',

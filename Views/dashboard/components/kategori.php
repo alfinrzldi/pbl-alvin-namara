@@ -128,6 +128,10 @@
                 <input type="text" name="nama_kategori" id="nama_kategori"
                   class="bg-gray-800 border border-gray-300 text-gray-100 text-sm rounded-lg  block w-full p-2.5"
                   placeholder="Nama Kategori" required="" value="${kategori.nama_kategori}">
+                  <label for="photo" class=" mt-5 block mb-2 text-sm font-bold text-gray-900">Upload Photo</label>
+                <input type="file" name="photo" id="photo"
+                class="bg-gray-800 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                value="${kategori.photo}">
               </div>
             </div>
           `);

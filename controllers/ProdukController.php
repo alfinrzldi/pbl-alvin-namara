@@ -19,6 +19,7 @@ class ProdukController
         view('dashboard/index', ['produks' => $produks, 'page' => 'produk']);
     }
 
+
     public function save()
     {
 

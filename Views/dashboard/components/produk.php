@@ -11,21 +11,23 @@
     </button>
   </div>
   <!-- Tabel Produk -->
-  <div class="bg-white overflow-hidden shadow-md rounded-lg w-auto p-2">
+  <div class="bg-white overflow-hidden shadow-md rounded-lg w-auto p-2" style="overflow-x:auto;" >
     <table class=" sm:w-full divide-gray-200" id="table_produk">
       <thead class="">
-        <tr class="" >
-          <th scope="col" class="px-6 py-5 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-          <th scope="col" class="px-6 py-5 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
+        <tr class="">
+          <th scope="col" class="px-6 py-5 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">ID
+          </th>
+          <th scope="col" class="px-6 py-5 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Kategori</th>
           <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Nama
             Produk</th>
-            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Harga
-            </th>
-            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Deskripsi
-            </th>
-            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Harga
+          </th>
+          <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Deskripsi
+          </th>
+          <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
             Photo</th>
         </tr>
       </thead>
@@ -76,11 +78,11 @@
 </div>
 <script>
   function getCategoryName(kategori) {
-        switch (kategori) {
-            default:
-                return 'Pisang';
-        }
-      }
+    switch (kategori) {
+      default:
+        return 'Pisang';
+    }
+  }
   //isi tabel body dinamis
   $.ajax({
     url: '/api/produks',
@@ -90,7 +92,7 @@
             <tr>
                 <td class='text-center' >${index + 1}</td>
                 <td class='text-center' >${item.nama_kategori
-                }</td>
+        }</td>
                 <td class='text-center' >${item.nama_produk}</td>
                 <td class='text-center' >${item.harga}</td>
                 <td class='text-center' >${item.deskripsi}</td>
@@ -114,11 +116,11 @@
 
         $(".produk-tambah").on("click", function () {
           $.ajax({
-                        url: '/api/kategoris',
-                        type: 'GET',
-                        success: function (response) {
-                            $("#modal-header").text("Tambah Produk");
-                            $("#modal-content").html(`
+            url: '/api/kategoris',
+            type: 'GET',
+            success: function (response) {
+              $("#modal-header").text("Tambah Produk");
+              $("#modal-content").html(`
                             <input type="hidden" name="id">
                             <div class="grid gap-4 mb-4 grid-cols-2">
                               <div class="col-span-2">
@@ -154,20 +156,24 @@
                               </div>  
                             </div>
                             `);
-                            $("#submit").html("Simpan");
-                            $("form").attr("action", "produk/save");
-                            let kategoriSelect = $('#kategori_select');
-                            kategoriSelect.empty();
-                            kategoriSelect.append('<option>Pilih Kategori</option>');
-                           
-                            response.forEach(function (kategori) {
-                                kategoriSelect.append(`<option value="${kategori.id}">${kategori.nama_kategori}</option>`);
-                     });
-                 }
-            });
+              $("#submit").html("Simpan");
+              $("form").attr("action", "produk/save");
+              let kategoriSelect = $('#kategori_select');
+              kategoriSelect.empty();
+              kategoriSelect.append('<option>Pilih Kategori</option>');
+
+              response.forEach(function (kategori) {
+                kategoriSelect.append(`<option value="${kategori.id}">${kategori.nama_kategori}</option>`);
+              });
+            }
+          });
         });
         $(".produk-edit").on("click", function () {
           const userId = $(this).data('bs-id');
+          $.ajax({
+            url: '/api/kategoris',
+            type: 'GET',
+            success: function (responses) {
           const produk = response.find(item => item.id === userId);
           $("#modal-header").text("Edit Produk");
           $("#modal-content").html(`
@@ -175,10 +181,11 @@
             <div class="grid gap-4 mb-4 grid-cols-2">
               <div class="col-span-2">
 
-              <label for="kategori" class="block mb-2 text-sm font-bold text-gray-800 ">pilih kategoriS</label>
-                <input type="" name="kategori" id="kategori"
-                  class="bg-gray-800 border border-gray-300 text-gray-100 text-sm rounded-lg  block w-full p-2.5"
-                  placeholder="Kategori" required="" value="${produk.kategori_id}">
+              <label for="nama_produk" class="block mb-2 text-sm font-bold text-gray-900">Kategori</label>
+            <select class="form-select" id="kategori_select" name="kategori_id"
+                                aria-label="Kategori Select" value="${produk.kategori_id}">
+                            </select>
+             
 
                 <label for="nama_produk" class="block mb-2 text-sm font-bold text-gray-800">Nama
                   Produk</label>
@@ -197,14 +204,23 @@
                   placeholder="deskripsi" required="" value="${produk.deskripsi}">
 
                   <label for="photo" class="block pt-3 mb-2 text-sm font-bold text-gray-800 ">Ganti Foto</label>
-                <input type="file  " name="photo" id="photo"
+                <input type="file" name="photo" id="photo"
                   class="bg-gray-800 border border-gray-300 text-gray-100 text-sm rounded-lg  block w-full p-2.5"
-                  placeholder="photo" required="" value="${produk.photo}">
+                  placeholder="photo" value="${produk.photo}">
               </div>
             </div>
           `);
           $("#submit").html("Update");
           $("form").attr("action", "produk/update");
+          let kategoriSelect = $('#kategori_select');
+              kategoriSelect.empty();
+              
+
+              responses.forEach(function (kategori) {
+                kategoriSelect.append(`<option value="${kategori.id}"  ${kategori.id == produk.kategori_id ? 'selected' : ''} >${kategori.nama_kategori}</option>`);
+              });
+            }
+          });
         });
 
         $(".produk-delete").on("click", function () {
