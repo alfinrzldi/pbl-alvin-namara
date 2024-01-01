@@ -14,6 +14,7 @@ class Routes {
             '/kategoriproduk/(\d+)' => 'HomeController@kategoriproduk',
             '/forgotpassword' => 'ForgotPasswordController@index',
             '/forgotpassword/send' => 'ForgotPasswordController@send',
+            '/resetpassword' => 'ForgotPasswordController@reset',
             '/checkout' => 'HomeController@checkout',
             '/sendwhatsapp' => 'HomeController@sendwhatsapp',
 

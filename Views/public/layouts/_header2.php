@@ -1,7 +1,7 @@
 <nav class=" w-full z-50 top-0 start-0">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="assets/images/icon/logo-namara.png" class="h-8" alt="NamaraSnack Logo">
+        <img src="http://localhost/pbl-mvc-alfin/assets/images/icon/logo-namara.pngxxxxxxx" class="h-8" alt="NamaraSnack Logo">
         <span class="self-center font-semibold whitespace-nowrap text-button text-2xl lg:text-3xl">Namara<span class="font-light text-buttontext">Snack</span>
     </a>
     <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">

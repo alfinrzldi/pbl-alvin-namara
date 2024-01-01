@@ -23,12 +23,12 @@ class HomeController
 
     public function detail($id)
     {
-        if (isset($_SESSION['role_user']) && $_SESSION['role_user'] === 1) {
-            view("dashboard/index");
-        } else {
+        if (isset($_SESSION['role_user'])) {
             $produkModel = new Produk();
             $produk = $produkModel->findById($id);
             view("public/detailproduk", ['produk' => $produk]);
+        } else {
+            header("Location: /login");
         }
     }
 

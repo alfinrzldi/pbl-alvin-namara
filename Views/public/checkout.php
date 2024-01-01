@@ -35,8 +35,7 @@
 
             <div>
                 <button type="submit"
-                    class="-mt-10 w-full text-gray-900 border-2 border-gray-700 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign
-                    In</button>
+                    class="-mt-10 w-full text-gray-900 border-2 border-gray-700 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Pesan Disini</button>
             </div>
         </form>
     </div>

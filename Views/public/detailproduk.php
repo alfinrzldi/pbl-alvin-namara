@@ -1,6 +1,6 @@
-<!-- <header>
+
   <?php include 'layouts/_header2.php'; ?>
-</header> -->
+
 
 
 
@@ -44,8 +44,7 @@
           </span>
           <br>
           <input type="number" id="quantity" name="quantity" min="1" class="w-16 p-2 border border-gray-300 rounded-md">
-          <button type="submit" class="mt-4 px-4 py-2 bg-yellow-700 text-white rounded-md">Tambahkan ke
-            Keranjang</button>
+          <button type="submit" class="mt-4 px-4 py-2 bg-yellow-700 text-white rounded-md">Pesan Disini</button>
           <div class="flex">
           </div>
       </div>

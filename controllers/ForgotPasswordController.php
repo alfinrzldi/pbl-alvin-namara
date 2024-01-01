@@ -48,7 +48,7 @@ class ForgotPasswordController
         // $mail->Body = 'haii';
         $mail->Body    = '<h1>Click the link below to reset your password</h1>
                             <br>
-                            <a href="http:localhost/pbl-mvc-alfin/ForgotPasswordController/reset_password/' . $email . '/' . $token . '">Reset Password</a>';
+                            <a href="http://localhost:8000/resetpassword?email=' . $email . '&token=' . $token . '">Reset Password</a>';
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
         $mail->send();
@@ -99,7 +99,13 @@ class ForgotPasswordController
         exit;
 
    }
+   
 }
+public function reset()
+{
+    view('public/resetpassword');
+}
+
 }
 
 ?>
