@@ -83,6 +83,7 @@ class UserController
         $_SESSION['flash_message'] = $message;
         header('Location: /dashboard/users');
     }
+
 }
 
 ?>

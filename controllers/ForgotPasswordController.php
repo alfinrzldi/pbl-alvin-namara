@@ -1,4 +1,6 @@
 <?php
+require_once 'Models/User.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -6,105 +8,136 @@ use PHPMailer\PHPMailer\Exception;
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 class ForgotPasswordController
-{ 
+{
+    private $userModel;
+
+    public function __construct()
+    {
+        $this->userModel = new User();
+    }
+
     public function index()
-   {
-    view("public/forgotpassword");
-   }
+    {
+        view("public/forgotpassword");
+    }
 
-   public function send() {
-    $mail = new PHPMailer(true);
-    $email = $_POST['email'];
-    $token = hash("sha256", bin2hex(random_bytes(16)));
+    public function send()
+    {
+        $email = $_POST['email'];
+        $user = $this->userModel->getUserByEmail($email);
+        if (!$user) {
+            $message = [
+                'tipe' => 'error',
+                'pesan' => 'Email Tidak Terdaftar',
+            ];
+            $_SESSION['flash_message'] = $message;
+            header('Location: /login');
+            exit;
+        }
 
-    date_default_timezone_set('asia/makassar');
-    
-    $data = [
-        'email' => $email,
-        'token' => $token
-    ];
+        $mail = new PHPMailer(true);
+        $token = hash("sha256", bin2hex(random_bytes(16)));
 
-    // print_r($email);
-    // die;
+        date_default_timezone_set('asia/makassar');
 
-    try {
-        //Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-        $mail->isSMTP();                                            //Send using SMTP
-        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'finbot073@gmail.com';                     //SMTP username
-        $mail->Password   = 'bpvbiosiaseflfzu';                               //SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
-        $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        try {
+            //Server settings
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host = 'smtp.gmail.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth = true;                                   //Enable SMTP authentication
+            $mail->Username = 'finbot073@gmail.com';                     //SMTP username
+            $mail->Password = 'bpvbiosiaseflfzu';                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+            $mail->Port = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-        //Recipients
-        $mail->setFrom('finbot073@gmail.com', 'Namara Snack');
-        $mail->addAddress($email);     //Add a recipient
+            //Recipients
+            $mail->setFrom('finbot073@gmail.com', 'Namara Snack');
+            $mail->addAddress($email);     //Add a recipient
 
-        //Content
-        $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = 'Reset Password From Namara Snack';
-        // $mail->Body = 'haii';
-        $mail->Body    = '<h1>Click the link below to reset your password</h1>
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Reset Password From Namara Snack';
+            $mail->Body = '<h1>Click the link below to reset your password</h1>
                             <br>
                             <a href="http://localhost:8000/resetpassword?email=' . $email . '&token=' . $token . '">Reset Password</a>';
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-        $mail->send();
-        echo 'Message has been sent';
-    } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            $mail->send();
+
+            $result = $this->updateToken($email, $token);
+
+            if ($result == "true") {
+                $message = [
+                    'tipe' => 'success',
+                    'pesan' => 'Silahkan cek Email anda untuk mendapatkan tautan Reset Password',
+                ];
+            } else {
+                $message = [
+                    'tipe' => 'error',
+                    'pesan' => "Terjadi kesalahan saat menyimpan token untuk email = $email",
+                ];
+            }
+
+
+            $_SESSION['flash_message'] = $message;
+            header('Location: /login');
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
     }
-}
 
-
-   public function reset_password($email, $token)
-   {
-
-    $user = $this->model('user')->getUserByEmail($email);
-    if (!$user) {
-        Flasher::setFlash('email tidak ditemukan', 'silahkan masukkan link yang valid!', 'error');
-        header(`Location: 'http:localhost/pbl-mvc-alfin/ForgotPasswordController'`);
-        exit;
+    public function updateToken($email, $token)
+    {
+        $result = $this->userModel->setTokenUser($email, $token);
+        return $result;
     }
 
-    if($user['token'] !== $token) {
-        Flasher::setFlash('token tidak ditemukan', 'silahkan masukkan link yang valid!', 'error');
-        header(`Location:'http:localhost/pbl-mvc-alfin/ForgotPasswordController'`);
-        exit;
+    public function resetPasswordForm()
+    {
+        $user = $this->userModel->verifyToken($_GET['email'], $_GET['token']);
+
+        if (!$user) {
+            $message = [
+                'tipe' => 'error',
+                'pesan' => 'Terjadi Kesalahan Email dan Token tidak sesuai',
+            ];
+            $_SESSION['flash_message'] = $message;
+            header("Location: /login");
+        } else {
+            view("public/resetpassword", ['user' => $user]);
+        }
     }
 
-    $data['email'] = $email;
+    public function resetPassword()
+    {
+        $password = $_POST['password'];
+        $id = $_POST['id'];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    view('ForgotPasswordController/index', $data);
-   }
+        $data = [
+            'token' => '',
+            'password' => $hashedPassword,
+            'id' => $id,
+        ];
 
-   public function verify_reset_password()
-   {
-    $password = htmlspecialchars($_POST['NewPW']);
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+        $result = $this->userModel->edit($data);
+        if ($result === true) {
+            $message = [
+                'tipe' => 'success',
+                'pesan' => 'Reset Password Berhasil! Silahkan login ulang',
+            ];
+        } else {
+            // Handle exceptions thrown from UserModel's save method
+            $message = [
+                'tipe' => 'error',
+                'pesan' => $result,
+            ];
+        }
 
-    $data = [
-        'password' =>$password_hash,
-        'email' => $_POST['email']
-    ];
-
-    if ($this->model('User')->editPassword($data) > 0) {
-        Flasher::setFlash('reset password', 'reset password berhasil silahkan login', 'success');
-        header(`location:'http:localhost/pbl-mvc-alfin/ForgotPasswordController'`);
-    } else {
-        Flasher::setFlash('reset password', 'reset password gagal', 'error');
-        header(`Location: 'http:localhost/pbl-mvc-alfin/ForgotPasswordController'`);
-        exit;
-
-   }
-   
-}
-public function reset()
-{
-    view('public/resetpassword');
-}
+        $_SESSION['flash_message'] = $message;
+        header('location:/login');
+    }
 
 }
 

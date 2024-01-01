@@ -8,7 +8,7 @@ class User extends Model
         parent::__construct();
         $this->table = 'users';
     }
-    
+
     //method - method lainnya
     public function getUserByEmail($email)
     {
@@ -28,6 +28,33 @@ class User extends Model
         } else {
             // Invalid credentials
             return false;
+        }
+    }
+
+    public function verifyToken($email, $token)
+    {
+        $user = $this->getUserByEmail($email);
+        if ($user && $token === $user['token']) {
+            // Password matches
+            return $user;
+        } else {
+            // Invalid credentials
+            return false;
+        }
+    }
+
+    public function setTokenUser($email, $token)
+    {
+        try {
+            $query = "UPDATE {$this->table} SET token = :token WHERE email = :email";
+            $stmt = $this->conn->prepare($query);
+
+            $stmt->bindValue(':token', $token);
+            $stmt->bindValue(':email', $email);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            return $e->getMessage();
         }
     }
 

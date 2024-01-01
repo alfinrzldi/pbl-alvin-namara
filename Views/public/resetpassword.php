@@ -6,13 +6,14 @@
         <a href="index.html">
             <h1 class="text-3xl font-regular text-center text-gray-900 mb-8">Forgot Password</h1>
         </a>
-        <form action="/forgotpassword/send" class="space-y-6" method="POST">
+        <form action="/resetpassword/reset" class="space-y-6" method="POST">
+            <input type="hidden" name="id" value="<?=$user['id']?>">
             <div>
-                <label class="block text-gray-900 font-regular mb-2" for="email">
-                    Email
+                <label class="block text-gray-900 font-regular mb-2" for="password">
+                    Password
                 </label>
-                <input class="w-full px-4 py-2 text-white rounded-lg border bg-gray-800 border-gray-400" id="email" name="email"
-                    required type="email" placeholder="Email" >
+                <input class="w-full px-4 py-2 text-white rounded-lg border bg-gray-800 border-gray-400" id="password" name="password"
+                    required type="password" placeholder="Password" >
             </div>
             <div class="flex justify-around">
             </div>

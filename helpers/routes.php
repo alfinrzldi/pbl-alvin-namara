@@ -14,12 +14,11 @@ class Routes {
             '/kategoriproduk/(\d+)' => 'HomeController@kategoriproduk',
             '/forgotpassword' => 'ForgotPasswordController@index',
             '/forgotpassword/send' => 'ForgotPasswordController@send',
-            '/resetpassword' => 'ForgotPasswordController@reset',
+            '/resetpassword' => 'ForgotPasswordController@resetPasswordForm',
+            '/resetpassword/reset' => 'ForgotPasswordController@resetPassword',
             '/checkout' => 'HomeController@checkout',
             '/sendwhatsapp' => 'HomeController@sendwhatsapp',
 
-            
-            
             //Dashboard User
             '/dashboard/users' => 'UserController@index',
             '/dashboard/user/save' => 'UserController@save',

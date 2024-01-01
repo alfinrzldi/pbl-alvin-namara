@@ -18,10 +18,6 @@ class Model implements CrudInterface
     {
         $keys = implode(', ', array_keys($data));
         $values = ':' . implode(', :', array_keys($data));
-        // print_r($data);
-        // print_r($keys);
-        // print_r($values);
-        // exit;
 
         try {
             $query = "INSERT INTO {$this->table} ({$keys}) VALUES ({$values})";
