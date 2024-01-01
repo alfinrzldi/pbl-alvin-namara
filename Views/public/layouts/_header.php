@@ -25,7 +25,7 @@
           <a href="/" class="block py-2 px-3 text-black rounded md:text-black md:hidden md:hover:text-blue-700 lg:text-black md:p-2 lg:p-2" aria-current="page">Home</a>
         </li>
         <li>
-          <a href="#category" class="block py-2 px-3 text-black rounded md:hover:rounded-xl md:hover:text-blue-700 md:p-2 lg:p-2">Category</a>
+          <a href="#kategory" class="block py-2 px-3 text-black rounded md:hover:rounded-xl md:hover:text-blue-700 md:p-2 lg:p-2">Category</a>
         </li>
         <li>
           <a href="#produk" class="block py-2 px-3 text-black rounded md:hover:rounded-xl md:hover:text-blue-700 md:p-2 lg:p-2">Produk</a>

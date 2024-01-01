@@ -214,8 +214,6 @@
           $("form").attr("action", "produk/update");
           let kategoriSelect = $('#kategori_select');
               kategoriSelect.empty();
-              
-
               responses.forEach(function (kategori) {
                 kategoriSelect.append(`<option value="${kategori.id}"  ${kategori.id == produk.kategori_id ? 'selected' : ''} >${kategori.nama_kategori}</option>`);
               });

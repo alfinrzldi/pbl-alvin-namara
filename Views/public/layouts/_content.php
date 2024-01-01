@@ -43,7 +43,7 @@
             ?>
             <div class="flex-shrink-0 m-6 relative overflow-hidden <?= $index % 2!= 0 ? 'bg-pinknamara' : 'bg-button' ?> rounded-xl max-w-xs shadow-xl duration-500 hover:scale-105 hover:shadow-xl w-48 md:w-64"
                 data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
-                <a href="?kategori=<?= $kategori['id'] ?>">
+                <a href="?kategori=<?= $kategori['id'] ?>" id="kategori" >
                 <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none"
                     style="transform: scale(1.5); opacity: 0.1;">
                     <rect x="159.52" y="175" width="152" height="152" rx="8" transform="rotate(-45 159.52 175)"
